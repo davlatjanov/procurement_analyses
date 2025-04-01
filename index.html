@@ -7,92 +7,151 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
       body {
-        font-family: Arial, sans-serif;
-        margin: 2rem;
-        background: linear-gradient(120deg, #2c3e50, #4ca1af);
-        color: #ecf0f1;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f5f7fa;
+        color: #333;
       }
       .container {
-        max-width: 1200px;
+        max-width: 1400px;
         margin: 0 auto;
+        padding: 2rem;
       }
       .upload-section {
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(10px);
-        padding: 2rem;
-        border-radius: 15px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-        margin-bottom: 2rem;
+        background: #fff;
+        padding: 2.5rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        margin-bottom: 2.5rem;
         text-align: center;
       }
       .upload-section h1 {
-        font-size: 2.5rem;
-        background: linear-gradient(90deg, #ff7e5f, #feb47b);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+        font-size: 2.8rem;
+        color: #2c3e50;
+        margin-bottom: 1.5rem;
       }
       .upload-section input {
-        margin-top: 1rem;
-        padding: 0.5rem 1rem;
-        font-size: 1rem;
+        margin-top: 1.5rem;
+        padding: 0.8rem 1.5rem;
+        font-size: 1.1rem;
         border: none;
-        border-radius: 5px;
-        background: #16a085;
-        color: #ecf0f1;
+        border-radius: 6px;
+        background: #3498db;
+        color: white;
         cursor: pointer;
+        transition: background 0.3s;
       }
       .upload-section input:hover {
-        background: #1abc9c;
+        background: #2980b9;
       }
       .filter-section {
         display: flex;
         justify-content: space-between;
-        margin-bottom: 2rem;
+        margin-bottom: 2.5rem;
+        background: white;
+        padding: 1.5rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
       }
       .filter-section select {
-        padding: 0.5rem;
-        font-size: 1rem;
-        border-radius: 5px;
+        padding: 0.8rem 1.2rem;
+        font-size: 1.1rem;
+        border-radius: 6px;
+        border: 1px solid #ddd;
+        background: white;
+        color: #2c3e50;
+        min-width: 200px;
+      }
+      .filter-section button {
+        padding: 0.8rem 1.5rem;
+        font-size: 1.1rem;
         border: none;
-        background: #16a085;
-        color: #ecf0f1;
+        border-radius: 6px;
+        background: #3498db;
+        color: white;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+      .filter-section button:hover {
+        background: #2980b9;
       }
       .results {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 2rem;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 2.5rem;
       }
       .card {
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(10px);
-        padding: 1.5rem;
-        border-radius: 15px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        background: white;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
         transition: transform 0.3s, box-shadow 0.3s;
       }
       .card:hover {
-        transform: scale(1.05);
-        box-shadow: 0 6px 30px rgba(0, 0, 0, 0.3);
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
       }
       .card h3 {
-        margin-bottom: 1rem;
-        font-size: 1.5rem;
+        margin-bottom: 1.2rem;
+        font-size: 1.8rem;
+        color: #2c3e50;
+        border-bottom: 2px solid #f1f1f1;
+        padding-bottom: 0.8rem;
+      }
+      .card p {
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
+        color: #34495e;
       }
       canvas {
-        max-height: 300px;
+        min-height: 350px;
+        margin-top: 1.5rem;
       }
       #bullwhipCard {
         grid-column: span 2;
-        background: linear-gradient(135deg, #ff7e5f, #feb47b);
-        color: #2c3e50;
-        text-align: center;
+        background: #fff;
+        border-left: 6px solid #3498db;
       }
       #bullwhipCard h3 {
         color: #2c3e50;
-        font-size: 2rem;
+        font-size: 2.2rem;
       }
       #bullwhipCard canvas {
-        max-height: 400px;
+        min-height: 450px;
+      }
+      
+      /* Key metrics styling */
+      .metric-highlight {
+        font-weight: bold;
+        color: #2980b9;
+      }
+      
+      /* Chart tooltip styling */ 
+      .chart-container {
+        position: relative;
+        width: 100%;
+      }
+      
+      /* Make charts more readable */
+      .chart-title {
+        text-align: center;
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+        color: #2c3e50;
+      }
+      
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        .results {
+          grid-template-columns: 1fr;
+        }
+        #bullwhipCard {
+          grid-column: span 1;
+        }
+        .card {
+          padding: 1.5rem;
+        }
       }
     </style>
   </head>
@@ -158,7 +217,7 @@
       function populateFilters(data) {
         const suppliers = [...new Set(data.map((record) => record.supplier))];
         const supplierFilter = document.getElementById("supplierFilter");
-        supplierFilter.innerHTML = '<option value="all">All</option>';
+        supplierFilter.innerHTML = '<option value="all">All Suppliers</option>';
         suppliers.forEach((supplier) => {
           const option = document.createElement("option");
           option.value = supplier;
@@ -271,7 +330,7 @@
           ([name, stats]) => ({
             name,
             avg: stats.totalLeadTime / stats.count,
-            delay: stats.totalDelay / stats.count, // Include delay for transportation chart
+            delay: stats.totalDelay / stats.count,
           })
         );
         const bestTransport = transportModes.sort((a, b) => a.avg - b.avg)[0];
@@ -301,53 +360,67 @@
         resultsDiv.innerHTML += `
         <div class="card">
             <h3>Supplier Performance</h3>
-            <p>Highest Average Lead Time: ${
+            <p>Highest Average Lead Time: <span class="metric-highlight">${
               topSupplier.name
-            } (${topSupplier.avg.toFixed(1)} days)</p>
-            <canvas id="supplierChart"></canvas>
+            } (${topSupplier.avg.toFixed(1)} days)</span></p>
+            <div class="chart-container">
+              <canvas id="supplierChart"></canvas>
+            </div>
         </div>
 
         <div class="card">
             <h3>Transportation Efficiency</h3>
-            <p>Fastest Mode: ${bestTransport.name} (${bestTransport.avg.toFixed(
+            <p>Fastest Mode: <span class="metric-highlight">${bestTransport.name} (${bestTransport.avg.toFixed(
           1
-        )} days)</p>
-            <p>Average Delay: ${bestTransport.delay.toFixed(1)} days</p>
-            <canvas id="transportChart"></canvas>
+        )} days)</span></p>
+            <p>Average Delay: <span class="metric-highlight">${bestTransport.delay.toFixed(1)} days</span></p>
+            <div class="chart-container">
+              <canvas id="transportChart"></canvas>
+            </div>
         </div>
 
         <div class="card">
             <h3>Monthly Performance</h3>
-            <p>Worst Month: Month ${
+            <p>Worst Month: <span class="metric-highlight">Month ${
               worstMonth.name
-            } (Avg delay: ${worstMonth.avg.toFixed(1)} days)</p>
-            <canvas id="monthChart"></canvas>
+            } (Avg delay: ${worstMonth.avg.toFixed(1)} days)</span></p>
+            <div class="chart-container">
+              <canvas id="monthChart"></canvas>
+            </div>
         </div>
 
         <div class="card">
             <h3>Disruption Impact</h3>
-            <p>Most Impactful: ${
+            <p>Most Impactful: <span class="metric-highlight">${
               worstDisruption.name
-            } (${worstDisruption.avg.toFixed(1)} days)</p>
-            <canvas id="disruptionChart"></canvas>
+            } (${worstDisruption.avg.toFixed(1)} days)</span></p>
+            <div class="chart-container">
+              <canvas id="disruptionChart"></canvas>
+            </div>
         </div>
 
         <div class="card">
             <h3>Product Efficiency</h3>
-            <p>Fastest Category: ${bestProduct.name} (${bestProduct.avg.toFixed(
+            <p>Fastest Category: <span class="metric-highlight">${bestProduct.name} (${bestProduct.avg.toFixed(
           1
-        )} days)</p>
-            <canvas id="productChart"></canvas>
+        )} days)</span></p>
+            <div class="chart-container">
+              <canvas id="productChart"></canvas>
+            </div>
         </div>
 
         <div class="card" id="bullwhipCard">
             <h3>Bullwhip Effect Analysis</h3>
-            <canvas id="bullwhipChart"></canvas>
+            <div class="chart-container">
+              <canvas id="bullwhipChart"></canvas>
+            </div>
         </div>
 
         <div class="card">
             <h3>Order Quantity vs. Lead Time Variability</h3>
-            <canvas id="correlationChart"></canvas>
+            <div class="chart-container">
+              <canvas id="correlationChart"></canvas>
+            </div>
         </div>
     `;
 
@@ -355,31 +428,36 @@
           "supplierChart",
           suppliers.map((s) => s.name),
           suppliers.map((s) => s.avg),
-          "Average Lead Time (days)"
+          "Average Lead Time (days)",
+          ["#3498db", "#2980b9", "#1f618d", "#154360"]
         );
         createBarChart(
           "transportChart",
           transportModes.map((t) => t.name),
           transportModes.map((t) => t.avg),
-          "Average Lead Time (days)"
+          "Average Lead Time (days)",
+          ["#e74c3c", "#c0392b", "#922b21", "#641e16"]
         );
         createBarChart(
           "monthChart",
           months.map((m) => `Month ${m.name}`),
           months.map((m) => m.avg),
-          "Average Delay (days)"
+          "Average Delay (days)",
+          ["#f1c40f", "#f39c12", "#d35400", "#a04000"]
         );
         createBarChart(
           "disruptionChart",
           disruptions.map((d) => d.name),
           disruptions.map((d) => d.avg),
-          "Average Delay (days)"
+          "Average Delay (days)",
+          ["#9b59b6", "#8e44ad", "#6c3483", "#4a235a"]
         );
         createBarChart(
           "productChart",
           products.map((p) => p.name),
           products.map((p) => p.avg),
-          "Average Lead Time (days)"
+          "Average Lead Time (days)",
+          ["#2ecc71", "#27ae60", "#1e8449", "#145a32"]
         );
 
         const bullwhipData = Object.entries(results.demandVsOrders);
@@ -391,23 +469,102 @@
               {
                 label: "Customer Demand",
                 data: bullwhipData.map(([, values]) => values.demand),
-                borderColor: "#4CAF50",
+                borderColor: "#2ecc71",
+                backgroundColor: "rgba(46, 204, 113, 0.1)",
+                borderWidth: 3,
+                tension: 0.2,
+                pointRadius: 4,
+                pointBackgroundColor: "#27ae60",
               },
               {
                 label: "Order Quantity",
                 data: bullwhipData.map(([, values]) => values.orders),
-                borderColor: "#FF5733",
+                borderColor: "#e74c3c",
+                backgroundColor: "rgba(231, 76, 60, 0.1)",
+                borderWidth: 3,
+                tension: 0.2,
+                pointRadius: 4,
+                pointBackgroundColor: "#c0392b",
               },
             ],
           },
           options: {
             responsive: true,
+            maintainAspectRatio: false,
             plugins: {
               title: {
                 display: true,
                 text: "Bullwhip Effect: Demand vs. Orders",
+                font: {
+                  size: 18,
+                  weight: 'bold'
+                },
+                color: '#2c3e50',
+                padding: 20
               },
+              legend: {
+                position: 'top',
+                labels: {
+                  font: {
+                    size: 14
+                  },
+                  padding: 15
+                }
+              },
+              tooltip: {
+                backgroundColor: 'rgba(0,0,0,0.8)',
+                padding: 15,
+                titleFont: {
+                  size: 16
+                },
+                bodyFont: {
+                  size: 14
+                },
+                displayColors: false
+              }
             },
+            scales: {
+              x: { 
+                title: {
+                  display: true,
+                  text: 'Month',
+                  font: {
+                    weight: 'bold',
+                    size: 14
+                  },
+                  color: '#34495e'
+                },
+                ticks: {
+                  font: {
+                    size: 12
+                  },
+                  color: '#2c3e50'
+                },
+                grid: {
+                  display: false
+                }
+              },
+              y: { 
+                title: {
+                  display: true,
+                  text: 'Quantity',
+                  font: {
+                    weight: 'bold',
+                    size: 14
+                  },
+                  color: '#34495e'
+                },
+                ticks: {
+                  font: {
+                    size: 12
+                  },
+                  color: '#2c3e50'
+                },
+                grid: {
+                  color: 'rgba(0,0,0,0.05)'
+                }
+              }
+            }
           },
         });
 
@@ -424,27 +581,80 @@
                     y: results.leadTimeVariability[index],
                   })
                 ),
-                backgroundColor: "#1abc9c",
+                backgroundColor: "#3498db",
+                pointRadius: 6,
+                pointHoverRadius: 8,
               },
             ],
           },
           options: {
             responsive: true,
+            maintainAspectRatio: false,
             plugins: {
               title: {
                 display: true,
-                text: "Order Quantity vs Lead Time Variability",
+                text: "Order Quantity vs Lead Time Correlation",
+                font: {
+                  size: 18,
+                  weight: 'bold'
+                },
+                color: '#2c3e50',
+                padding: 20
               },
+              tooltip: {
+                backgroundColor: 'rgba(0,0,0,0.8)',
+                padding: 15,
+                callbacks: {
+                  label: function(context) {
+                    return `Order: ${context.parsed.x}, Lead Time: ${context.parsed.y} days`;
+                  }
+                }
+              }
             },
             scales: {
-              x: { title: { display: true, text: "Order Quantity" } },
-              y: { title: { display: true, text: "Lead Time (days)" } },
+              x: { 
+                title: { 
+                  display: true, 
+                  text: "Order Quantity",
+                  font: {
+                    weight: 'bold',
+                    size: 14
+                  },
+                  color: '#34495e'
+                },
+                ticks: {
+                  font: {
+                    size: 12
+                  },
+                  color: '#2c3e50'
+                }
+              },
+              y: { 
+                title: { 
+                  display: true, 
+                  text: "Lead Time (days)",
+                  font: {
+                    weight: 'bold',
+                    size: 14
+                  },
+                  color: '#34495e'
+                },
+                ticks: {
+                  font: {
+                    size: 12
+                  },
+                  color: '#2c3e50'
+                }
+              },
             },
           },
         });
       }
 
-      function createBarChart(canvasId, labels, data, label) {
+      function createBarChart(canvasId, labels, data, label, colorPalette) {
+        const colors = colorPalette || ["#3498db", "#2980b9", "#1f618d", "#154360"];
+        const backgroundColors = labels.map((_, i) => colors[i % colors.length]);
+        
         new Chart(document.getElementById(canvasId), {
           type: "bar",
           data: {
@@ -453,16 +663,68 @@
               {
                 label,
                 data,
-                backgroundColor: "#1abc9c",
-                borderColor: "#16a085",
+                backgroundColor: backgroundColors,
+                borderColor: "rgba(0,0,0,0.1)",
                 borderWidth: 1,
+                borderRadius: 4,
+                barThickness: 'flex',
+                maxBarThickness: 60,
               },
             ],
           },
           options: {
             responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                display: false
+              },
+              tooltip: {
+                backgroundColor: 'rgba(0,0,0,0.8)',
+                padding: 12,
+                callbacks: {
+                  title: function(tooltipItems) {
+                    return tooltipItems[0].label;
+                  },
+                  label: function(context) {
+                    return `${label}: ${context.parsed.y.toFixed(1)}`;
+                  }
+                }
+              }
+            },
             scales: {
-              y: { beginAtZero: true },
+              x: {
+                grid: {
+                  display: false
+                },
+                ticks: {
+                  font: {
+                    size: 12
+                  },
+                  color: '#2c3e50'
+                }
+              },
+              y: { 
+                beginAtZero: true,
+                title: {
+                  display: true,
+                  text: label,
+                  font: {
+                    weight: 'bold',
+                    size: 14
+                  },
+                  color: '#34495e'
+                },
+                ticks: {
+                  font: {
+                    size: 12
+                  },
+                  color: '#2c3e50'
+                },
+                grid: {
+                  color: 'rgba(0,0,0,0.05)'
+                }
+              },
             },
           },
         });
